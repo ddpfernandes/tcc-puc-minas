@@ -1,4 +1,4 @@
-namespace Cliente.Models
+namespace Cliente.ViewModels
 {
     public class CustomerUpdateViewModel
     {

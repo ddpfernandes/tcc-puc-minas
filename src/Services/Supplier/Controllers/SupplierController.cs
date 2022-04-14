@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Supplier.ViewModels;
 
 namespace Fornecedor.Controllers;
 
@@ -28,8 +30,7 @@ public class FornecedorController : ControllerBase
     /// Get all suppliers.
     /// </summary>
     /// <returns></returns>
-    [HttpGet]
-    [HttpPost]
+    [HttpGet]    
     public async Task<IActionResult> GetAll()
     {
         return Ok();
@@ -39,8 +40,7 @@ public class FornecedorController : ControllerBase
     /// Get supplier by Id.
     /// </summary>
     /// <returns></returns>
-    [HttpGet("{id}")]
-    [HttpPost]
+    [HttpGet("{id}")]    
     public async Task<IActionResult> GetById(Guid id)
     {
         return Ok();
@@ -50,9 +50,8 @@ public class FornecedorController : ControllerBase
     /// Update supplier data.
     /// </summary>
     /// <returns></returns>
-    [HttpPut("{id}")]
-    [HttpPost]
-    public async Task<IActionResult> Update(Guid id, [FromBody] CustomerUpdateViewModel dto)
+    [HttpPut("{id}")]    
+    public async Task<IActionResult> Update(Guid id, [FromBody] SupplierUpdateViewModel viewModel)
     {
         return Ok();
     }
@@ -61,8 +60,7 @@ public class FornecedorController : ControllerBase
     /// Delete supplier.
     /// </summary>
     /// <returns></returns>
-    [HttpPut("{id}")]
-    [HttpPost]
+    [HttpPut("{id}")]    
     public async Task<IActionResult> Delete(Guid id)
     {
         return Ok();

@@ -1,4 +1,4 @@
-using Cliente.Models;
+using Cliente.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,8 +31,7 @@ public class ClienteController : ControllerBase
     /// Get all customers.
     /// </summary>
     /// <returns></returns>
-    [HttpGet]
-    [HttpPost]
+    [HttpGet]    
     public async Task<IActionResult> GetAll()
     {
         return Ok();
@@ -42,8 +41,7 @@ public class ClienteController : ControllerBase
     /// Get customer by Id.
     /// </summary>
     /// <returns></returns>
-    [HttpGet("{id}")]
-    [HttpPost]
+    [HttpGet("{id}")]    
     public async Task<IActionResult> GetById(Guid id)
     {
         return Ok();
@@ -53,8 +51,7 @@ public class ClienteController : ControllerBase
     /// Update user data.
     /// </summary>
     /// <returns></returns>
-    [HttpPut("{id}")]
-    [HttpPost]
+    [HttpPut("{id}")]    
     public async Task<IActionResult> Update(Guid id, [FromBody] CustomerUpdateViewModel dto)
     {
         return Ok();
@@ -64,8 +61,7 @@ public class ClienteController : ControllerBase
     /// Delete user.
     /// </summary>
     /// <returns></returns>
-    [HttpPut("{id}")]
-    [HttpPost]
+    [HttpPut("{id}")]    
     public async Task<IActionResult> Delete(Guid id)
     {
         return Ok();
