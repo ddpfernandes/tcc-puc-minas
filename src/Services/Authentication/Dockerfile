@@ -1,8 +1,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
 WORKDIR /app
-EXPOSE 5071
+EXPOSE 5072
 
-ENV ASPNETCORE_URLS=http://+:5071
+ENV ASPNETCORE_URLS=http://+:5072
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers
@@ -11,16 +11,16 @@ USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
-COPY ["Services/Fornecedor/Fornecedor.csproj", "Services/Fornecedor/"]
-RUN dotnet restore "Services/Fornecedor/Fornecedor.csproj"
+COPY ["Services/Authentication/Authentication.csproj", "Services/Authentication/"]
+RUN dotnet restore "Services/Authentication/Authentication.csproj"
 COPY . .
-WORKDIR "/src/Services/Fornecedor"
-RUN dotnet build "Fornecedor.csproj" -c Release -o /app/build
+WORKDIR "/src/Services/Authentication"
+RUN dotnet build "Authentication.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Fornecedor.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Authentication.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Fornecedor.dll"]
+ENTRYPOINT ["dotnet", "Authentication.dll"]
