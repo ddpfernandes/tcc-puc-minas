@@ -17,6 +17,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5000      
+    depends_on:
+      - db-user
+      - rabbitmq
+    networks:
+      - api-net
 
   customer:
     container_name: customer
@@ -29,6 +34,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5001      
+    depends_on:
+      - db-customer
+      - rabbitmq
+    networks:
+      - api-net
 
   supplier:
     container_name: supplier
@@ -41,41 +51,55 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5002 
+    depends_on:
+      - db-supplier
+      - rabbitmq
+    networks:
+      - api-net
 
 # Databases
 
   db-user:
+    container_name: db-user
     image: postgres:14.1-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5432:5432'
+      - '5050:5050'
     volumes: 
-      - db-user:/var/lib/postgresql/data
+      - db-user:/var/lib/postgresql/
+    networks:
+      - api-net
 
   db-customer:
+    container_name: db-customer
     image: postgres:14.1-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5432:5432'
+      - '5051:5051'
     volumes: 
       - db-customer:/var/lib/postgresql/data
+    networks:
+      - api-net
 
   db-supplier:
+    container_name: db-supplier
     image: postgres:14.1-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5432:5432'
+      - '5052:5052'
     volumes: 
       - db-supplier:/var/lib/postgresql/data
+    networks:
+      - api-net
 
 # Message Queue
 
@@ -89,18 +113,89 @@ services:
       - rabbitmq_data:/var/lib/rabbitmq/
       - rabbitmq_log:/var/log/rabbitmq/
     networks:
-      - rabbitmq_go_net
+      - api-net
+
+# api gateway setup
+  kong-database:
+    image: postgres:9.6
+    container_name: kong-database
+    ports:
+      - 5555:5555
+    environment:
+      - POSTGRES_USER=kong
+      - POSTGRES_DB=kong
+      - POSTGRES_PASSWORD=kong
+    networks:
+      - api-net
+    volumes:
+      - "db-data-kong-postgres:/var/lib/postgresql/data"
+
+  kong-migrations:
+    image: kong
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+    command: kong migrations bootstrap
+    restart: on-failure
+    networks:
+      - api-net
+    depends_on:
+      - kong-database
+
+  kong:
+    image: kong
+    container_name: kong
+    environment:
+      - LC_CTYPE=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_USER=kong
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+    restart: on-failure
+    ports:
+      - 8000:8000
+      - 8443:8443
+      - 8001:8001
+      - 8444:8444
+    links:
+      - kong-database:kong-database
+    networks:
+      - api-net
+    depends_on:
+      - kong-migrations
+
+  konga:
+    image: pantsel/konga
+    ports:
+      - 1337:1337
+    links:
+      - kong:kong
+    container_name: konga
+    environment:
+      - NODE_ENV=production
+    networks:
+      - api-net
 
 volumes:
     rabbitmq_data:
     rabbitmq_log:
     db-user:
       driver: local
-    db-customers:
+    db-customer:
       driver: local
     db-supplier:
       driver: local
+    db-data-kong-postgres:
 
 networks:
-  rabbitmq_go_net:
+  api-net:
     driver: bridge
