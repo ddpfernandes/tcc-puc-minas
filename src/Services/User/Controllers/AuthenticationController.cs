@@ -9,12 +9,12 @@ namespace Acesso.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class AuthenticationController : ControllerBase
+public class UserController : ControllerBase
 {
-    private readonly ILogger<AuthenticationController> _logger;
+    private readonly ILogger<UserController> _logger;
     private readonly IMediator _mediator;
 
-    public AuthenticationController(ILogger<AuthenticationController> logger, IMediator mediator)
+    public UserController(ILogger<UserController> logger, IMediator mediator)
     {
         _logger = logger;
         _mediator = mediator;

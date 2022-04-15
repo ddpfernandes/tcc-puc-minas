@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "src\Services\Authentication\Authentication.csproj", "{B879EA46-1DE2-4C1C-B3E0-E275D2DD62CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User", "src\Services\User\User.csproj", "{B879EA46-1DE2-4C1C-B3E0-E275D2DD62CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer", "src\Services\Customer\Customer.csproj", "{F793BF20-3156-4EF6-866A-5B910A5EC9C9}"
 EndProject
