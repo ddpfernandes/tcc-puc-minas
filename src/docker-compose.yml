@@ -3,6 +3,9 @@
 version: "3.4"
 
 services:
+
+# Apis
+
   user:
     container_name: user
     image: user:latest
@@ -37,7 +40,44 @@ services:
       - 5002:5002
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5002
+      - ASPNETCORE_URLS=http://+:5002 
+
+# Databases
+
+  db-user:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db-user:/var/lib/postgresql/data
+
+  db-customer:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db-customer:/var/lib/postgresql/data
+
+  db-supplier:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db-supplier:/var/lib/postgresql/data
+
+# Message Queue
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -54,6 +94,12 @@ services:
 volumes:
     rabbitmq_data:
     rabbitmq_log:
+    db-user:
+      driver: local
+    db-customers:
+      driver: local
+    db-supplier:
+      driver: local
 
 networks:
   rabbitmq_go_net:
