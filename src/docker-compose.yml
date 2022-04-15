@@ -1,43 +1,55 @@
 # Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
 
-version: '3.4'
+version: "3.4"
 
 services:
-  acesso:
-   image: acesso
-   build:
-     context: .
-     dockerfile: Services/Acesso/Dockerfile
-   ports:
-     - 5000:5000
-
-  fornecedor:
-    image: fornecedor
+  authentication:
+    container_name: authentication
+    image: authentication:latest
     build:
       context: .
-      dockerfile: Services/Fornecedor/Dockerfile
+      dockerfile: Services/Authentication/Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000      
+
+  customer:
+    container_name: customer
+    image: customer:latest
+    build:
+      context: .
+      dockerfile: Services/Customer/Dockerfile
     ports:
       - 5001:5001
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5001      
 
-  cliente:
-   image: cliente
-   build:
-     context: .
-     dockerfile: Services/Cliente/Dockerfile
-   ports:
-     - 5002:5002
+  supplier:
+    container_name: supplier
+    image: supplier:latest
+    build:
+      context: .
+      dockerfile: Services/Supplier/Dockerfile
+    ports:
+      - 5002:5002
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5002
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
+    container_name: "rabbitmq"
     ports:
-        - 5672:5672
-        - 15672:15672
+      - 5672:5672
+      - 15672:15672
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
-        - rabbitmq_go_net
+      - rabbitmq_go_net
 
 networks:
   rabbitmq_go_net:

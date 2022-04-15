@@ -7,11 +7,11 @@ namespace Cliente.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class ClienteController : ControllerBase
+public class CustomerController : ControllerBase
 {
-    private readonly ILogger<ClienteController> _logger;
+    private readonly ILogger<CustomerController> _logger;
 
-    public ClienteController(ILogger<ClienteController> logger)
+    public CustomerController(ILogger<CustomerController> logger)
     {
         _logger = logger;
     }
@@ -61,7 +61,7 @@ public class ClienteController : ControllerBase
     /// Delete user.
     /// </summary>
     /// <returns></returns>
-    [HttpPut("{id}")]    
+    [HttpDelete("{id}")]    
     public async Task<IActionResult> Delete(Guid id)
     {
         return Ok();

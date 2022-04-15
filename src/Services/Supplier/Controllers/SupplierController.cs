@@ -7,11 +7,11 @@ namespace Fornecedor.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class FornecedorController : ControllerBase
+public class SupplierController : ControllerBase
 {
-    private readonly ILogger<FornecedorController> _logger;
+    private readonly ILogger<SupplierController> _logger;
 
-    public FornecedorController(ILogger<FornecedorController> logger)
+    public SupplierController(ILogger<SupplierController> logger)
     {
         _logger = logger;
     }
@@ -60,7 +60,7 @@ public class FornecedorController : ControllerBase
     /// Delete supplier.
     /// </summary>
     /// <returns></returns>
-    [HttpPut("{id}")]    
+    [HttpDelete("{id}")]    
     public async Task<IActionResult> Delete(Guid id)
     {
         return Ok();

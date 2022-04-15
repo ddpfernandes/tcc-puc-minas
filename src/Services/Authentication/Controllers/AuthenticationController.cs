@@ -1,19 +1,23 @@
+using Acesso.Application.Commands;
 using Acesso.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
 
 namespace Acesso.Controllers;
 
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class AcessoController : ControllerBase
+public class AuthenticationController : ControllerBase
 {
-    private readonly ILogger<AcessoController> _logger;
+    private readonly ILogger<AuthenticationController> _logger;
+    private readonly IMediator _mediator;
 
-    public AcessoController(ILogger<AcessoController> logger)
+    public AuthenticationController(ILogger<AuthenticationController> logger, IMediator mediator)
     {
         _logger = logger;
+        _mediator = mediator;
     }
 
     [AllowAnonymous]
@@ -29,7 +33,7 @@ public class AcessoController : ControllerBase
     /// <returns></returns>
     [AllowAnonymous]
     [HttpPost]
-    public async Task<IActionResult> Create()
+    public async Task<IActionResult> Create(CreateUserCommand command)
     {
         return Ok();
     }
@@ -39,7 +43,6 @@ public class AcessoController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [HttpPost]
     public async Task<IActionResult> GetAll()
     {
         return Ok();
@@ -50,7 +53,6 @@ public class AcessoController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [HttpPost]
     public async Task<IActionResult> GetById(Guid id)
     {
         return Ok();
@@ -61,7 +63,6 @@ public class AcessoController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPut("{id}")]
-    [HttpPost]
     public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateViewModel dto)
     {
         return Ok();
@@ -71,8 +72,7 @@ public class AcessoController : ControllerBase
     /// Delete user.
     /// </summary>
     /// <returns></returns>
-    [HttpPut("{id}")]
-    [HttpPost]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         return Ok();
