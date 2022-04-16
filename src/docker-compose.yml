@@ -18,6 +18,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5000   
       - CONNECTION_STRING=Host=db-user;Port=5432;Database=postgres;UID=postgres;PWD=postgres;
+      - CONNECTION_STRING_RABBITMQ=host=rabbitmq
     depends_on:
       - db-user
       - rabbitmq
@@ -36,9 +37,9 @@ services:
       - 5001:5001
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5001      
-      - CONNECTION_STRING=localhost:5051
+      - ASPNETCORE_URLS=http://+:5001            
       - CONNECTION_STRING=Host=db-customer;Port=5432;Database=postgres;UID=postgres;PWD=postgres;
+      - CONNECTION_STRING_RABBITMQ=host=rabbitmq
     depends_on:
       - db-customer
       - rabbitmq
@@ -57,6 +58,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5002 
       - CONNECTION_STRING=Host=db-supplier;Port=5432;Database=postgres;UID=postgres;PWD=postgres;
+      - CONNECTION_STRING_RABBITMQ=host=rabbitmq
     depends_on:
       - db-supplier
       - rabbitmq

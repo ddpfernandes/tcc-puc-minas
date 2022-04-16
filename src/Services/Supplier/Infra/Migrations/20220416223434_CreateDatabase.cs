@@ -3,20 +3,19 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Customer.Migrations
+namespace Supplier.Infra.Migrations
 {
-    public partial class MyMigrations : Migration
+    public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "Suppliers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Address = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Phone = table.Column<string>(type: "varchar(200)", nullable: false)
+                    Email = table.Column<string>(type: "varchar(200)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,7 +26,7 @@ namespace Customer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Suppliers");
         }
     }
 }

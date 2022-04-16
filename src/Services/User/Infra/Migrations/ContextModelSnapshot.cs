@@ -2,20 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using User.Infra;
 
 #nullable disable
 
-namespace User.Migrations
+namespace User.Infra.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220416190426_CreateDatabase")]
-    partial class CreateDatabase
+    partial class ContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,6 +28,10 @@ namespace User.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
@@ -37,6 +39,12 @@ namespace User.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
+
+                    b.Property<Guid?>("PersonId")
+                        .HasColumnType("Id");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("int(11)");
 
                     b.HasKey("Id")
                         .HasName("PRIMARY");

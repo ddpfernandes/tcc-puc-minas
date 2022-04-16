@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace User.Migrations
+namespace User.Infra.Migrations
 {
     public partial class CreateDatabase : Migration
     {
@@ -15,7 +15,10 @@ namespace User.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Password = table.Column<string>(type: "varchar(200)", nullable: false)
+                    Email = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Password = table.Column<string>(type: "varchar(200)", nullable: false),
+                    UserType = table.Column<int>(type: "int(11)", nullable: false),
+                    PersonId = table.Column<Guid>(type: "Id", nullable: true)
                 },
                 constraints: table =>
                 {

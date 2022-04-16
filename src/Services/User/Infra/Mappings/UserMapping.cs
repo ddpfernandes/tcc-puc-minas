@@ -16,6 +16,16 @@ namespace User.Infra.Mappings
 
             builder.Property(e => e.Password)
                 .HasColumnType("varchar(200)");
+
+            builder.Property(e => e.Email)
+                .HasColumnType("varchar(200)");
+
+            builder.Property(e => e.UserType)
+                .HasColumnType("int(11)");
+
+            builder.Property(e => e.PersonId)
+                .HasColumnType("Id")
+                .IsRequired(false);
             #endregion
 
             #region Primary Key

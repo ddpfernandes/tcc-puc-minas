@@ -17,7 +17,7 @@ namespace Supplier.Infra
         {
             base.OnConfiguring(optionsBuilder);
 
-            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? throw new ArgumentException("CONNECTION_STRING não foi definida para Api Customer");
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? throw new ArgumentException("CONNECTION_STRING não foi definida para Api Supplier");
             // var connectionString = @"Host=localhost;Port=5052;Database=postgres;UID=postgres;PWD=postgres";
 
             optionsBuilder.UseNpgsql(connectionString, 

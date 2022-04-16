@@ -11,13 +11,10 @@ namespace Supplier.Infra.Mappings
             builder.Property(e => e.Id)
                 .HasColumnType("uuid");
 
-            builder.Property(e => e.Address)
-                .HasColumnType("varchar(200)");
-
             builder.Property(e => e.Name)
                 .HasColumnType("varchar(200)");
 
-            builder.Property(e => e.Phone)
+            builder.Property(e => e.Email)
                 .HasColumnType("varchar(200)");
             #endregion
 

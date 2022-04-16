@@ -4,24 +4,21 @@ namespace Supplier.Domain
 {
     public class Supplier : IAggregateRoot
     {
-        public Supplier(string name, string address, string phone)
+        public Supplier(string name, string email)
         {
             Id = Guid.NewGuid();
             Name = name;
-            Address = address;
-            Phone = phone;
+            Email = email;
         }
 
         public Guid Id { get; private set; }
         public string Name { get; private set; }
-        public string Address { get; private set; }
-        public string Phone { get; private set; }        
+        public string Email { get; private set; }  
 
-        public void ChangeData(string name, string address, string phone)
+        public void ChangeData(string name, string email)
         {
             Name = name;
-            Address = address;
-            Phone = phone;
+            Email = email;
         }
     }
 }

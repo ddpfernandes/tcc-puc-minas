@@ -21,8 +21,8 @@ namespace User.Infra
         {
             base.OnConfiguring(optionsBuilder);
 
-            // var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? throw new ArgumentException("CONNECTION_STRING não foi definida para Api Customer");
-            var connectionString = @"Host=localhost;Port=5050;Database=postgres;UID=postgres;PWD=postgres";
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? throw new ArgumentException("CONNECTION_STRING não foi definida para Api User");
+            // var connectionString = @"Host=localhost;Port=5050;Database=postgres;UID=postgres;PWD=postgres";
 
             optionsBuilder.UseNpgsql(connectionString, 
                      sqlServerDbContextOptionsBuilder => sqlServerDbContextOptionsBuilder.EnableRetryOnFailure());    

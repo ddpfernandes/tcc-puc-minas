@@ -23,20 +23,28 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerQueries, CustomerQueries>();
 
 builder.Services.AddDbContext<Context>(options =>
-{   
-    var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? throw new ArgumentException("CONNECTION_STRING não foi definida para Api Customer");                
+{
+    var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? throw new ArgumentException("CONNECTION_STRING não foi definida para Api Customer");
     // var connectionString = @"Host=localhost;Port=5051;Database=postgres;UID=postgres;PWD=postgres";
 
-    options.UseNpgsql(connectionString, 
-                     sqlServerDbContextOptionsBuilder => sqlServerDbContextOptionsBuilder.EnableRetryOnFailure());    
+    options.UseNpgsql(connectionString,
+                     sqlServerDbContextOptionsBuilder => sqlServerDbContextOptionsBuilder.EnableRetryOnFailure());
     options.EnableSensitiveDataLogging();
 });
 
 var app = builder.Build();
 
-using var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope();
-var context = serviceScope.ServiceProvider.GetRequiredService<Context>();
-context.Database.Migrate();
+try
+{
+    using var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope();
+    var context = serviceScope.ServiceProvider.GetRequiredService<Context>();
+    context.Database.Migrate();
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

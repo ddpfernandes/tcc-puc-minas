@@ -3,7 +3,6 @@ using User.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using Seedwork.CommandHandler;
 using User.Application.Queries;
 
 namespace User.Controllers
