@@ -3,6 +3,7 @@ WORKDIR /app
 EXPOSE 5001
 
 ENV ASPNETCORE_URLS=http://+:5001
+ENV CONNECTION_STRING="Server=localhost;Database=postgres;UID=postgres;PWD=postgres"
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers

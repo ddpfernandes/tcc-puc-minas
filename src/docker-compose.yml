@@ -16,10 +16,13 @@ services:
       - 5000:5000
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5000      
+      - ASPNETCORE_URLS=http://+:5000   
+      - CONNECTION_STRING=Host=db-user;Port=5432;Database=postgres;UID=postgres;PWD=postgres;
     depends_on:
       - db-user
       - rabbitmq
+    links:
+      - db-user
     networks:
       - api-net
 
@@ -34,6 +37,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5001      
+      - CONNECTION_STRING=localhost:5051
+      - CONNECTION_STRING=Host=db-customer;Port=5432;Database=postgres;UID=postgres;PWD=postgres;
     depends_on:
       - db-customer
       - rabbitmq
@@ -51,6 +56,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5002 
+      - CONNECTION_STRING=Host=db-supplier;Port=5432;Database=postgres;UID=postgres;PWD=postgres;
     depends_on:
       - db-supplier
       - rabbitmq
@@ -67,7 +73,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5050:5050'
+      - '5050:5432'
     volumes: 
       - db-user:/var/lib/postgresql/
     networks:
@@ -81,7 +87,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5051:5051'
+      - '5051:5432'
     volumes: 
       - db-customer:/var/lib/postgresql/data
     networks:
@@ -95,7 +101,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5052:5052'
+      - '5052:5432'
     volumes: 
       - db-supplier:/var/lib/postgresql/data
     networks:
