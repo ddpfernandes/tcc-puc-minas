@@ -11,9 +11,9 @@ namespace User.Infra.Data
             _context = context;
         }
 
-        public async Task Add(Domain.User aggregateRoot)
+        public void Add(Domain.User aggregateRoot)
         {
-            await _context.Users.AddAsync(aggregateRoot);
+            _context.Users.Add(aggregateRoot);
         }
 
         public async Task Delete(Guid id)

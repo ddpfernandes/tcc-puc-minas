@@ -11,9 +11,9 @@ namespace Supplier.Infra.Data
             _context = context;
         }
 
-        public async Task Add(Domain.Supplier aggregateRoot)
+        public void Add(Domain.Supplier aggregateRoot)
         {
-            await _context.Suppliers.AddAsync(aggregateRoot);
+            _context.Suppliers.Add(aggregateRoot);
         }
 
         public async Task Delete(Guid id)

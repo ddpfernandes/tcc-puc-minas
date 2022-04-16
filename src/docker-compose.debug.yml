@@ -27,11 +27,11 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
 
-  cliente:
-    image: cliente
+  customer:
+    image: customer
     build:
       context: .
-      dockerfile: Services/Cliente/Dockerfile
+      dockerfile: Services/Customer/Dockerfile
     ports:
       - 5002:5002
     environment:

@@ -1,4 +1,4 @@
-namespace Acesso.ViewModels
+namespace User.ViewModels
 {
     public class UserUpdateViewModel
     {

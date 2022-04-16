@@ -1,6 +1,8 @@
 using MediatR;
+using Seedwork.DomainObjects;
+using User.Domain;
 
-namespace Acesso.Application.Commands
+namespace User.Application.Commands
 {
     public class CreateUserCommand : IRequest<CreateUserCommandResponse>
     {
@@ -34,11 +36,24 @@ namespace Acesso.Application.Commands
 
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserCommandResponse>
     {
+        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _uow;
+
+        public CreateUserCommandHandler(IUserRepository userRepository, 
+                                        IUnitOfWork uow)
+        {
+            _userRepository = userRepository;
+            _uow = uow;
+        }
+
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
-            var id = Guid.NewGuid();
+            var user = new User.Domain.User(command.Name, command.Password);
 
-            return new CreateUserCommandResponse(id, command.Name, command.Email, command.Password);            
+            _userRepository.Add(user);
+            await _uow.Commit();
+
+            return new CreateUserCommandResponse(user.Id, user.Name, null, user.Password);            
         }
     }
 }

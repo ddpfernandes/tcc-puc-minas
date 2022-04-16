@@ -1,35 +1,45 @@
-using MediatR;
+using User.Application.Commands;
+using User.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Supplier.Application.Commands;
-using Supplier.Application.Queries;
-using Supplier.ViewModels;
+using MediatR;
+using Seedwork.CommandHandler;
+using User.Application.Queries;
 
-namespace Supplier.Controllers
+namespace User.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SupplierController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly ILogger<SupplierController> _logger;
+        private readonly ILogger<UserController> _logger;
         private readonly IMediator _mediator;
-        private readonly ISupplierQueries _supplierQueries;
+        private readonly IUserQueries _userQueries;
 
-        public SupplierController(
-            ILogger<SupplierController> logger,
+        public UserController(
+            ILogger<UserController> logger,
             IMediator mediator,
-            ISupplierQueries supplierQueries)
+            IUserQueries userQueries)
         {
             _logger = logger;
             _mediator = mediator;
-            _supplierQueries = supplierQueries;
+            _userQueries = userQueries;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("auth")]
+        public async Task<IActionResult> Login()
+        {
+            return Ok();
         }
 
         /// <summary>
-        /// Create a new supplier.
+        /// Create a new user.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateSupplierCommand command)
+        public async Task<IActionResult> Create(CreateUserCommand command)
         {
             var result = await _mediator.Send(command);
 
@@ -37,39 +47,39 @@ namespace Supplier.Controllers
         }
 
         /// <summary>
-        /// Get all suppliers.
+        /// Get all users.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var users = await _supplierQueries.GetAllSupplier();
+            var users = await _userQueries.GetAllUser();
             return Ok(users);
         }
 
         /// <summary>
-        /// Get supplier by Id.
+        /// Get user by Id.
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var supplier = await _supplierQueries.GetSupplier(id);
-            return Ok(supplier);
+            var user = await _userQueries.GetUser(id);
+            return Ok(user);
         }
 
         /// <summary>
-        /// Update supplier data.
+        /// Update user data.
         /// </summary>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] SupplierUpdateViewModel viewModel)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateViewModel dto)
         {
             return Ok();
         }
 
         /// <summary>
-        /// Delete supplier.
+        /// Delete user.
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{id}")]
