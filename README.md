@@ -15,6 +15,13 @@ A microservice architecture – a variant of the service-oriented architecture (
 - Kong Api Gateway
 - Richardson Maturity Model- Level 2
 
+## How to run?
+This project is based in Docker-Compose. If you want to run just type in your favorite console:
+
+```
+docker-compose up
+```
+
 ## Students/Authors
 - Daniel de Pinho Fernandes [@ddpfernandes](https://www.linkedin.com/in/ddpfernandes)
 - Daniel Rodrigues Melo [@dmelos](https://www.linkedin.com/in/dmelos)
