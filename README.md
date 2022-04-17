@@ -1,3 +1,5 @@
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=ddpfernandes&repo=tcc-puc-minas&show_owner=true&theme=aura_dark)](https://github.com/anuraghazra/github-readme-stats)
+
 # Boa Entrega - Logistics System based in Microservices Architecture
 Proof of concept for the course Distributed Software Architecture - PUC Minas
 
