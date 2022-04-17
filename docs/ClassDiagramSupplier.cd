@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Supplier.Application.Commands.CreateSupplierCommand">
+    <Position X="0.5" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\Commands\CreateSupplierCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Supplier.Application.Commands.CreateSupplierCommandResponse" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\Commands\CreateSupplierCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Supplier.Application.Commands.CreateSupplierCommandHandler">
+    <Position X="2.75" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAIAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\Commands\CreateSupplierCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Supplier.Application.Queries.SupplierQueries">
+    <Position X="3.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAABAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\Queries\SupplierQueries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Supplier.Domain.Supplier">
+    <Position X="5.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAQAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Supplier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Supplier.Infra.Data.SupplierRepository">
+    <Position X="5.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAABAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Infra\Data\SupplierRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Supplier.Infra.Mappings.SupplierMapping">
+    <Position X="7.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infra\Mappings\SupplierMapping.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Supplier.Infra.Context">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAIAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infra\Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Supplier.Infra.UnitOfWork">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infra\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Supplier.ViewModels.SupplierUpdateViewModel">
+    <Position X="9.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\SupplierUpdateViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Supplier.Application.Queries.ISupplierQueries">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\Queries\ISupplierQueries.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Supplier.Domain.ISupplierRepository">
+    <Position X="0.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ISupplierRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

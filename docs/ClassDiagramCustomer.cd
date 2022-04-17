@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Customer.Domain.Customer">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAQAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Customer.Application.Commands.CreateCustomerCommand">
+    <Position X="0.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\Commands\CreateCustomerCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Customer.Application.Commands.CreateCustomerCommandResponse">
+    <Position X="2.75" Y="0.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\Commands\CreateCustomerCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Customer.Application.Commands.CreateCustomerCommandHandler">
+    <Position X="7.5" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAIAAIAAAAABAAAAAA=</HashCode>
+      <FileName>Application\Commands\CreateCustomerCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Customer.Application.Queries.CustomerQueries">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAIAAAAAABAAA=</HashCode>
+      <FileName>Application\Queries\CustomerQueries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Customer.Infra.Data.CustomerRepository">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAABAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Infra\Data\CustomerRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Customer.Infra.Data.Mappings.CustomerMapping">
+    <Position X="10.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infra\Mappings\CustomerMapping.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Customer.Infra.Context">
+    <Position X="12.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAQAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infra\Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Customer.Infra.UnitOfWork">
+    <Position X="10.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infra\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Customer.ViewModels.CustomerUpdateViewModel" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\CustomerUpdateViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Customer.Domain.ICustomerRepository">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ICustomerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Customer.Application.Queries.ICustomerQueries">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAABAAA=</HashCode>
+      <FileName>Application\Queries\ICustomerQueries.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
