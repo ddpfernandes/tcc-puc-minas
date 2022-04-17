@@ -54,7 +54,7 @@ namespace User.Application.Commands
 
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
-            var user = new User.Domain.User(command.Name, command.Password, command.Email, command.UserType, command.PersonId);
+            var user = new User.Domain.User(command.Name, command.Email, command.Password, command.UserType, command.PersonId);
 
             _userRepository.Add(user);
             await _uow.Commit();

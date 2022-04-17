@@ -7,6 +7,7 @@ using User.Application.Queries;
 using User.Domain;
 using User.Infra;
 using User.Infra.Data;
+using User.Application.IntegrationEvents;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IRequestHandler<CreateUserCommand, CreateUserCommandR
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserQueries, UserQueries>();
+builder.Services.AddHostedService<IntegrationEventsHandler>();
 
 builder.Services.AddDbContext<Context>(options =>
 {   

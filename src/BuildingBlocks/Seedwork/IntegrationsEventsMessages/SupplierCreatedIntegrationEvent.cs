@@ -1,4 +1,4 @@
-namespace Supplier.Application.IntegrationEvents
+namespace Seedwork.IntegrationsEventsMessages
 {
     public class SupplierCreatedIntegrationEvent
     {

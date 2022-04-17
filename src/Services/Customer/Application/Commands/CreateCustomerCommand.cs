@@ -2,7 +2,7 @@ using MediatR;
 using Seedwork.DomainObjects;
 using Customer.Domain;
 using EasyNetQ;
-using Customer.Application.IntegrationEvents;
+using Seedwork.IntegrationsEventsMessages;
 
 namespace Customer.Application.Commands
 {
@@ -15,7 +15,7 @@ namespace Customer.Application.Commands
         }
 
         public string Name { get; private set; }
-        public string Email { get; private set; }     
+        public string Email { get; private set; }
     }
 
     public class CreateCustomerCommandResponse
@@ -24,7 +24,7 @@ namespace Customer.Application.Commands
         {
             Id = id;
             Name = name;
-            Email = email;            
+            Email = email;
         }
 
         public Guid Id { get; private set; }
@@ -34,17 +34,16 @@ namespace Customer.Application.Commands
 
     public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CreateCustomerCommandResponse>
     {
+        private readonly ILogger<CreateCustomerCommandHandler> _logger;
         private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _uow;
-        private readonly IBus _bus;
-
-        public CreateCustomerCommandHandler(ICustomerRepository customerRepository, 
-                                            IUnitOfWork uow)
+        public CreateCustomerCommandHandler(ICustomerRepository customerRepository,
+                                            IUnitOfWork uow,
+                                            ILogger<CreateCustomerCommandHandler> logger)
         {
             _customerRepository = customerRepository;
             _uow = uow;
-            _bus =  RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("CONNECTION_STRING_RABBITMQ") 
-                                          ?? throw new ArgumentException("CONNECTION_STRING_RABBITMQ não foi definida em Customer"));
+            _logger = logger;
         }
 
         public async Task<CreateCustomerCommandResponse> Handle(CreateCustomerCommand command, CancellationToken cancellationToken)
@@ -54,7 +53,12 @@ namespace Customer.Application.Commands
             _customerRepository.Add(customer);
             await _uow.Commit();
 
-            await _bus.PubSub.PublishAsync(new CustomerCreatedIntegrationEvent(customer.Id, customer.Name, customer.Email));
+            using (var bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("CONNECTION_STRING_RABBITMQ") ?? throw new ArgumentException("CONNECTION_STRING_RABBITMQ não foi definida em Customer")))
+            {
+                _logger.LogInformation("----- enviando evento de integracao -----");
+                bus.PubSub.Publish(new CustomerCreatedIntegrationEvent(customer.Id, customer.Name, customer.Email));
+                _logger.LogInformation("----- evento enviado -----");
+            }
 
             return new CreateCustomerCommandResponse(customer.Id, customer.Name, customer.Email);
         }

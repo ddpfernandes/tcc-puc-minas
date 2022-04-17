@@ -21,10 +21,10 @@ namespace User.Infra.Mappings
                 .HasColumnType("varchar(200)");
 
             builder.Property(e => e.UserType)
-                .HasColumnType("int(11)");
+                .HasColumnType("int");
 
             builder.Property(e => e.PersonId)
-                .HasColumnType("Id")
+                .HasColumnType("uuid")
                 .IsRequired(false);
             #endregion
 

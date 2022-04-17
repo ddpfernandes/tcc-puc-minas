@@ -11,14 +11,30 @@ namespace User.Application.Queries
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Domain.User>> GetAllUser()
+        public async Task<IEnumerable<UserViewModel>> GetAllUser()
         {
-            return await _repository.GetAll();
+            var result = await _repository.GetAll();
+
+            return result.Select(_ => new UserViewModel()
+            {
+                Login = _.Email,
+                Name = _.Name,
+                Password = _.Password,
+                AccessType = Enum.GetName(typeof(UserType),_.UserType) ?? "Not defined"
+            });
         }
 
-        public async Task<Domain.User> GetUser(Guid id)
+        public async Task<UserViewModel> GetUser(Guid id)
         {
-            return await _repository.GetById(id);
+            var _ = await _repository.GetById(id);
+
+            return new UserViewModel()
+            {
+                Login = _.Email,
+                Name = _.Name,
+                Password = _.Password,
+                AccessType = Enum.GetName(typeof(UserType),_.UserType) ?? "Not defined"
+            };
         }
     }
 }

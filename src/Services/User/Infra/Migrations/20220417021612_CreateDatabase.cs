@@ -17,8 +17,8 @@ namespace User.Infra.Migrations
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Email = table.Column<string>(type: "varchar(200)", nullable: false),
                     Password = table.Column<string>(type: "varchar(200)", nullable: false),
-                    UserType = table.Column<int>(type: "int(11)", nullable: false),
-                    PersonId = table.Column<Guid>(type: "Id", nullable: true)
+                    UserType = table.Column<int>(type: "int", nullable: false),
+                    PersonId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {

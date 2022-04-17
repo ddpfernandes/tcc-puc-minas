@@ -41,10 +41,10 @@ namespace User.Infra.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<Guid?>("PersonId")
-                        .HasColumnType("Id");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("UserType")
-                        .HasColumnType("int(11)");
+                        .HasColumnType("int");
 
                     b.HasKey("Id")
                         .HasName("PRIMARY");

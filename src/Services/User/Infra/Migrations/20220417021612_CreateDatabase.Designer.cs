@@ -12,7 +12,7 @@ using User.Infra;
 namespace User.Infra.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220416223302_CreateDatabase")]
+    [Migration("20220417021612_CreateDatabase")]
     partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,10 +43,10 @@ namespace User.Infra.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<Guid?>("PersonId")
-                        .HasColumnType("Id");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("UserType")
-                        .HasColumnType("int(11)");
+                        .HasColumnType("int");
 
                     b.HasKey("Id")
                         .HasName("PRIMARY");

@@ -2,7 +2,7 @@ using MediatR;
 using Seedwork.DomainObjects;
 using Supplier.Domain;
 using EasyNetQ;
-using Supplier.Application.IntegrationEvents;
+using Seedwork.IntegrationsEventsMessages;
 
 namespace Supplier.Application.Commands
 {
@@ -36,15 +36,12 @@ namespace Supplier.Application.Commands
     {
         private readonly ISupplierRepository _supplierRepository;
         private readonly IUnitOfWork _uow;
-        private readonly IBus _bus;
 
-        public CreateSupplierCommandHandler(ISupplierRepository supplierRepository, 
+        public CreateSupplierCommandHandler(ISupplierRepository supplierRepository,
                                             IUnitOfWork uow)
         {
             _supplierRepository = supplierRepository;
             _uow = uow;
-            _bus =  RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("CONNECTION_STRING_RABBITMQ") 
-                                          ?? throw new ArgumentException("CONNECTION_STRING_RABBITMQ não foi definida em Supplier"));
         }
 
         public async Task<CreateSupplierCommandResponse> Handle(CreateSupplierCommand command, CancellationToken cancellationToken)
@@ -54,9 +51,12 @@ namespace Supplier.Application.Commands
             _supplierRepository.Add(supplier);
             await _uow.Commit();
 
-            await _bus.PubSub.PublishAsync(new SupplierCreatedIntegrationEvent(supplier.Id, supplier.Name, supplier.Email));
+            using (var bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("CONNECTION_STRING_RABBITMQ") ?? throw new ArgumentException("CONNECTION_STRING_RABBITMQ não foi definida em Supplier")))
+            {
+                bus.PubSub.Publish(new SupplierCreatedIntegrationEvent(supplier.Id, supplier.Name, supplier.Email));
+            }
 
-            return new CreateSupplierCommandResponse(supplier.Id, supplier.Name, supplier.Email);            
+            return new CreateSupplierCommandResponse(supplier.Id, supplier.Name, supplier.Email);
         }
     }
 }
