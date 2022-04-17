@@ -15,7 +15,7 @@ A microservice architecture – a variant of the service-oriented architecture (
 - Docker containers
 - RabbitMQ for Message Queue
 - Kong Api Gateway
-- Richardson Maturity Model- Level 2
+- Richardson Maturity Model - Level 2
 
 ## How to run?
 This project is based on Docker-Compose. If you want to run it just type on your favorite console:
