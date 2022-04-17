@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using User.Application.Queries;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace User.Controllers
 {
@@ -27,9 +31,35 @@ namespace User.Controllers
 
         [AllowAnonymous]
         [HttpPost("auth")]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login(AuthViewModel authViewModel)
         {
-            return Ok();
+            var usuario = await _userQueries.Auth(authViewModel.Email, authViewModel.Password);
+
+            if (usuario == null) return BadRequest("Nâo foi possível logar no sistema.");
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, usuario.Name),
+                new Claim(ClaimTypes.Role, usuario.AccessType),
+                new Claim(ClaimTypes.NameIdentifier, usuario.Login.ToString())
+            };
+
+            usuario.AccessType = GerarJwt(claims);
+            return Ok(usuario);
+        }
+
+        public static string GerarJwt(IEnumerable<Claim> permissoes)
+        {
+            var key = Encoding.ASCII.GetBytes("chave");
+            var jwt = new JwtSecurityToken(
+                issuer: "boaentrega",
+                audience: "boaentrega",
+                expires: DateTime.UtcNow.AddMinutes(5),
+                signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature),
+                claims: permissoes);
+
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
         /// <summary>

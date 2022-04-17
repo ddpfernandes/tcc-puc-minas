@@ -4,5 +4,6 @@ namespace User.Application.Queries
     {
         Task<UserViewModel> GetUser(Guid id);
         Task<IEnumerable<UserViewModel>> GetAllUser();
+        Task<UserViewModel> Auth(string email, string password);
     }
 }
